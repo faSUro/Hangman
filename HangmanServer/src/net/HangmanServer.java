@@ -23,8 +23,8 @@ public class HangmanServer {
 	
 	private void serverLoop(int port) throws IOException {
 		ServerSocket serverSocket = new ServerSocket(port);
-			Socket socket = serverSocket.accept();
-			serveClient(socket);
+		Socket socket = serverSocket.accept();
+		serveClient(socket);
 	}
 
     private void serveClient(Socket socket) throws IOException {
@@ -33,6 +33,7 @@ public class HangmanServer {
         Hangman game = new Hangman();
         Player player = new RemotePlayer(in, out);
         game.playGame(player);
+        socket.close();
 	}
 
 	/**

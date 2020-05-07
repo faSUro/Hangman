@@ -21,6 +21,7 @@ import hangman.Player;
  */
 public class HangmanServer {
 	
+	@SuppressWarnings("resource")
 	private void serverLoop(int port) throws IOException {
 		ServerSocket serverSocket = new ServerSocket(port);
 		Socket socket = serverSocket.accept();

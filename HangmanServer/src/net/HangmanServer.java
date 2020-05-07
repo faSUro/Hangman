@@ -17,7 +17,7 @@ import hangman.Player;
 
 /**
  *
- * @author Claudio Cusano <claudio.cusano@unipv.it>
+ * @author Nicolò Fasulo <fasulo.nicol@gmail.com>
  */
 public class HangmanServer {
 	

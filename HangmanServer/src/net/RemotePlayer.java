@@ -20,6 +20,7 @@ import java.io.PrintWriter;
  * Manage a player playing with the terminal.
  * 
  * @author Claudio Cusano <claudio.cusano@unipv.it>
+ * @author Nicolò Fasulo <fasulo.nicol@gmail.com>
  */
 public class RemotePlayer extends Player {
     

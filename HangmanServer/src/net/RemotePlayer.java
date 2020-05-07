@@ -5,7 +5,7 @@
  * Dept of Electrical, Computer and Biomedical Engineering,
  * University of Pavia.
  */
-package console;
+package net;
 
 import hangman.Player;
 import hangman.Game;
@@ -14,21 +14,26 @@ import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Manage a player playing with the terminal.
  * 
  * @author Claudio Cusano <claudio.cusano@unipv.it>
  */
-public class LocalPlayer extends Player {
+public class RemotePlayer extends Player {
     
-    BufferedReader console;
+    BufferedReader in;
+    PrintWriter out;
         
     /**
      * Constructor.
+     * @param out 
+     * @param in 
      */
-    public LocalPlayer() {
-        console = new BufferedReader(new InputStreamReader(System.in));
+    public RemotePlayer(BufferedReader in, PrintWriter out) {
+        this.in = in;
+        this.out = out;
     }
     
     @Override
@@ -43,9 +48,9 @@ public class LocalPlayer extends Player {
                 break;
             case OPEN:
                 int rem = Game.MAX_FAILED_ATTEMPTS - game.countFailedAttempts();
-                System.out.print("\n" + rem + " tentativi rimasti\n");
-                System.out.println(this.gameRepresentation(game));
-                System.out.println(game.getKnownLetters());
+                out.print("\n" + rem + " tentativi rimasti\n");
+                out.println(this.gameRepresentation(game));
+                out.println(game.getKnownLetters());
                 break;
         }
     }
@@ -65,13 +70,13 @@ public class LocalPlayer extends Player {
     }
     
     private void printBanner(String message) {
-        System.out.println("");
+        out.println("");
         for (int i = 0; i < 80; i++)
-            System.out.print("*");
-        System.out.println("\n***  " + message);
+            out.print("*");
+        out.println("\n***  " + message);
         for (int i = 0; i < 80; i++)
-            System.out.print("*");
-        System.out.println("\n");
+            out.print("*");
+        out.println("\n");
     }
 
     /**
@@ -83,17 +88,17 @@ public class LocalPlayer extends Player {
     @Override
     public char chooseLetter(Game game) {
         for (;;) {
-            System.out.print("Inserisci una lettera: ");
+            out.print("Inserisci una lettera: ");
             String line = null;
             try {
-                line = console.readLine().trim();
+                line = in.readLine().trim();
             } catch (IOException e) {
                 line = "";
             }
             if (line.length() == 1 && Character.isLetter(line.charAt(0))) {
                 return line.charAt(0);
             } else {
-                System.out.println("Lettera non valida.");
+                out.println("Lettera non valida.");
             }
         }
     }

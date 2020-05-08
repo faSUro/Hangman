@@ -48,34 +48,13 @@ public class RemotePlayer extends Player {
             case OPEN:
                 int rem = Game.MAX_FAILED_ATTEMPTS - game.countFailedAttempts();
                 out.print("\n" + rem + " tentativi rimasti\n");
-                out.println(this.gameRepresentation(game));
                 out.println(game.getKnownLetters());
                 break;
         }
     }
-
-    private String gameRepresentation(Game game) {
-        int a = game.countFailedAttempts();
-        
-        String s = "   ___________\n  /       |   \n  |       ";
-        s += (a == 0 ? "\n" : "O\n");
-        s += "  |     " + (a == 0 ? "\n" : (a < 5
-                ? "  +\n"
-                : (a == 5 ? "--+\n" : "--+--\n")));
-        s += "  |       " + (a < 2 ? "\n" : "|\n");
-        s += "  |      " + (a < 3 ? "\n" : (a == 3 ? "/\n" : "/ \\\n"));
-        s += "  |\n================\n";
-        return s;
-    }
     
     private void printBanner(String message) {
-        out.println("");
-        for (int i = 0; i < 80; i++)
-            out.print("*");
-        out.println("\n***  " + message);
-        for (int i = 0; i < 80; i++)
-            out.print("*");
-        out.println("\n");
+        out.println(message);
     }
 
     /**

@@ -27,8 +27,8 @@ public class RemotePlayer extends Player {
         
     /**
      * Constructor.
+     * @param in
      * @param out 
-     * @param in 
      */
     public RemotePlayer(BufferedReader in, PrintWriter out) {
         this.in = in;
@@ -39,11 +39,11 @@ public class RemotePlayer extends Player {
     public void update(Game game) {
         switch(game.getResult()) {
             case FAILED:
-                printBanner("Hai perso!  La parola da indovinare era '" +
+                printBanner("Hai perso!" + "\n" + "La parola da indovinare era '" +
                             game.getSecretWord() + "'");
                 break;
             case SOLVED:
-                printBanner("Hai indovinato!   (" + game.getSecretWord() + ")");
+                printBanner("Hai indovinato!" + "\n" + "(" + game.getSecretWord() + ")");
                 break;
             case OPEN:
                 int rem = Game.MAX_FAILED_ATTEMPTS - game.countFailedAttempts();

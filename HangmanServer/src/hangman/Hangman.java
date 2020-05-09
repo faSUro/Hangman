@@ -36,4 +36,5 @@ public class Hangman {
             game.makeAttempt(c);
         }
     }
+    
 }

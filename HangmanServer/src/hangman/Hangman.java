@@ -32,8 +32,7 @@ public class Hangman {
         game.addObserver(player);
         game.notifyObservers();
         while (game.getResult() == GameResult.OPEN) {
-            char c = player.chooseLetter(game);
-            game.makeAttempt(c);
+        	player.playRound(game);
         }
     }
     

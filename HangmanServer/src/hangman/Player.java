@@ -20,4 +20,6 @@ abstract public class Player implements GameObserver {
      * @return the letter chosen by the player
      */
     abstract public char chooseLetter(Game game);
+
+	public abstract void playRound(Game game);
 }

@@ -39,22 +39,27 @@ public class RemotePlayer extends Player {
     public void update(Game game) {
         switch(game.getResult()) {
             case FAILED:
-                printBanner("Hai perso!" + "\n" + "La parola da indovinare era '" +
+                printBanner("Hai perso!" + "	" + "La parola da indovinare era '" +
                             game.getSecretWord() + "'");
                 break;
             case SOLVED:
-                printBanner("Hai indovinato!" + "\n" + "(" + game.getSecretWord() + ")");
+                printBanner("Hai indovinato!" + "	" + "(" + game.getSecretWord() + ")");
                 break;
             case OPEN:
                 int rem = Game.MAX_FAILED_ATTEMPTS - game.countFailedAttempts();
-                out.print("\n" + rem + " tentativi rimasti\n");
-                out.println(game.getKnownLetters());
+                printBanner(rem + " tentativi rimasti	" + game.getKnownLetters() + "	Inserisci una lettera: ");
                 break;
         }
     }
     
+    /**
+     * Stampa il messaggio passato come argomento.
+     * Il messaggio è composto da una sola riga, le frasi sono
+     * divise dal carattere TAB.
+     * @param message
+     */
     private void printBanner(String message) {
-        out.println(message);
+    	out.println(message);
     }
 
     /**
@@ -66,18 +71,23 @@ public class RemotePlayer extends Player {
     @Override
     public char chooseLetter(Game game) {
         for (;;) {
-            out.print("Inserisci una lettera: ");
             String line = null;
             try {
                 line = in.readLine().trim();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 line = "";
             }
             if (line.length() == 1 && Character.isLetter(line.charAt(0))) {
                 return line.charAt(0);
             } else {
-                out.println("Lettera non valida.");
+            	printBanner("Lettera non valida.	Inserisci una lettera: ");
             }
         }
     }
+
+	@Override
+	public void playRound(Game game) {
+		char c = chooseLetter(game);
+        game.makeAttempt(c);
+	}
 }

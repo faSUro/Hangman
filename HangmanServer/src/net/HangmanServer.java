@@ -5,15 +5,9 @@
  */
 package net;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import hangman.Hangman;
-import hangman.Player;
 
 /**
  *
@@ -26,17 +20,9 @@ public class HangmanServer {
 		ServerSocket serverSocket = new ServerSocket(port);
 		while (true) {
 			Socket socket = serverSocket.accept();
-			serveClient(socket);
+			ConnectedClient client = new ConnectedClient(socket);
+			client.start();
 		}
-	}
-
-    private void serveClient(Socket socket) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        Hangman game = new Hangman();
-        Player player = new RemotePlayer(in, out);
-        game.playGame(player);
-        socket.close();
 	}
 
 	/**
